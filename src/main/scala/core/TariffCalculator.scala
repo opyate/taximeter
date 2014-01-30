@@ -60,7 +60,7 @@ object Calculator {
     new DateTime("2015-08-31"),
     new DateTime("2015-12-25"),
     new DateTime("2015-12-28"))
-  lazy val intervals = TariffTimetable.getTimetableWithIntervals(10, Nil)
+  lazy val intervals = TariffTimetable.getTimetableWithIntervals(10, publicHolidays)
   
   /**
    * Get the tariff intervals applicable to two signals.
