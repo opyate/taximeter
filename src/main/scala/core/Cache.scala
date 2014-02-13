@@ -26,22 +26,22 @@ class Cache(db: RedisClient)(implicit executionContext: ExecutionContext) {
     val session = Session(start)
     
     // Add one or more members to a set
-    db.sadd("tm:session", session.id)
+    db.sadd(s"${global.ns}:session", session.id)
     
     // Set the value of a key, only if the key does not exist
-    db.lpush("tm:session:" + session.id, session)
+    db.lpush(s"${global.ns}:session:" + session.id, session)
     session
   }
   
   def updateCost(current: Session) = {
-    db.lrange[Session]("tm:session:" + current.id, -1, -1) map { result =>
+    db.lrange[Session](s"${global.ns}:session:" + current.id, -1, -1) map { result =>
     	val previous :: Nil = result
         println(s"Found pprevious session = $previous")
         assert(previous.id == current.id)
         val newSession = Calculator.getCosts(previous, current)
         println(s"Calculated new session = $newSession")
         assert(newSession.id == current.id)
-        db.lpush("tm:session:" + current.id, newSession)
+        db.lpush(s"${global.ns}:session:" + current.id, newSession)
         newSession
     }
   }

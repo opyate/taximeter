@@ -1,14 +1,11 @@
 package core
 
-import models.Session
-import com.redis.RedisClient
-import org.joda.time.DateTime
-import org.joda.time.DateTimeConstants
-import org.joda.time.Instant
-import org.joda.time.Interval
-import scala.collection.immutable.TreeSet
-import akka.dispatch.Foreach
+import scala.Option.option2Iterable
 import scala.concurrent.Future
+
+import org.joda.time.DateTime
+
+import models.Session
 
 
 class TariffCalculator(cache: Cache) {

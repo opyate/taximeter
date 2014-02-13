@@ -1,13 +1,12 @@
 package core
 
+import scala.Option.option2Iterable
+import scala.collection.immutable.TreeSet
 
-import models.Session
-import com.redis.RedisClient
 import org.joda.time.DateTime
 import org.joda.time.DateTimeConstants
-import org.joda.time.Instant
 import org.joda.time.Interval
-import scala.collection.immutable.TreeSet
+import org.joda.time.Weeks
 
 trait Tariff {
   def getFor(day: Int, hour: Int) = if (day >= 1 && day <= 5) {
